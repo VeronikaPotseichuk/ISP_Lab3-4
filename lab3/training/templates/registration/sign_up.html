@@ -1,0 +1,10 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<form action="{% url 'sign-up' %}" method="post">
+    {{ form }}
+    {% csrf_token %}
+    <hr>
+    <button type="submit" class="btn btn-success">Отправить</button>
+</form>
+{% endblock %}

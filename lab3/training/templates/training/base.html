@@ -14,19 +14,26 @@
     a {
       margin-right: 15px;
     }
+    div {
+      margin-left: 15px;
+    }
 </style>
 <body>
     <header>
-        <div class="d-flex flex-column flex-md-row align-items-center mb-4 border-bottom text">
-            <a href="/" class="d-flex align-items-center text-white-50 text-decoration-none">
-            <span class="fs-1" href="/">Training</span>
+        <div class="d-flex flex-column flex-md-row align-items-center mb-4">
+            <a href="{% url 'home-page' %}" class="d-flex align-items-center text-white-50 text-decoration-none">
+            <span class="fs-1" href="">Training</span>
             </a>
-    
+
+            <b class="text-white-50">
+                  User: {{ user}}
+            </b>
+          
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-            <a class="me-3 py-2 text-white text-decoration-none" href="/">Starting</a>
-            <a class="me-3 py-2 text-white text-decoration-none" href="/about">About</a>
+            <a class="me-3 py-2 text-white text-decoration-none" href="{% url 'home-page' %}">Starting</a>
+            <a class="me-3 py-2 text-white text-decoration-none" href="{% url 'about' %}">About</a>
             </nav>
-            <a class="btn btn-outline-primary" href="#">Sign up</a>
+            <a class="btn btn-outline-primary" href="{% url 'sign-up' %}">Sign up</a>
         </div>
     </header>
 
