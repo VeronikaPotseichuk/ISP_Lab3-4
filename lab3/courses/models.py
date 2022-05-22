@@ -4,6 +4,9 @@ from io import BytesIO
 from django.core import files
 from users.models import UserProfile
 from .fields import OrderField
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.template.loader import render_to_string
 
 
 
@@ -72,6 +75,7 @@ class Course(models.Model):
         thumbnail = files.File(thumb_io, name=image.name)
         return thumbnail
 
+
 class Module(models.Model):
     course = models.ForeignKey(Course,
                                related_name='modules',
@@ -88,3 +92,78 @@ class Module(models.Model):
     def __str__(self):
         return '{}. {}'.format(self.order, self.title)
 
+
+class Content(models.Model):
+    module = models.ForeignKey(Module,
+                               related_name='contents',
+                               on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE,
+                                     limit_choices_to={
+                                         'model__in': ('text',
+                                                       'picture',
+                                                       'video',
+                                                       'file')
+                                     })
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')
+    order = OrderField(blank=True, for_fields=['module'])
+
+    class Meta:
+        verbose_name = 'Материал'
+        verbose_name_plural = 'Материалы'
+        ordering = ['order']
+
+class ItemBase(models.Model):
+    owner = models.ForeignKey(UserProfile,
+                              related_name='%(class)s_related',
+                              on_delete=models.CASCADE)
+    title = models.CharField(max_length=250)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.title
+
+    def render(self):
+        return render_to_string(
+            'courses/content/{}.html'.format(self._meta.model_name),
+            {'item': self}
+        )
+
+class Text(ItemBase):
+    content = models.TextField()
+
+    class Meta:
+        verbose_name = 'Информация'
+
+
+class File(ItemBase):
+    file = models.FileField(upload_to='files')
+
+    class Meta:
+        verbose_name = 'Файл'
+        verbose_name_plural = 'Файлы'
+
+
+class Picture(ItemBase):
+    picture = models.FileField(upload_to='images')
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
+
+    def get_picture(self):
+        if self.picture:
+            return self.picture.url
+        return ''
+
+
+class Video(ItemBase):
+    url = models.URLField()
+
+    class Meta:
+        verbose_name = 'Видео'

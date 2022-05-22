@@ -32,4 +32,3 @@ class OwnerCourseEditMixin(OwnerCourseMixin):
               'overview')
     success_url = reverse_lazy('manage_course_list')
     template_name = 'courses/manage/course/form.html'
-
