@@ -11,17 +11,28 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <title>{% block title %}{% endblock %}</title>
 </head>
+<style>
+    b {
+        margin-left: 15%;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+</style>
 <body>
     <header class="site-header sticky-top ">
-        <nav class="container-fluid d-flex flex-column flex-md-row justify-content-between bg-dark-nav">
+        <nav class="container-fluid d-flex flex-column flex-md-row justify-content-between bg-dark-nav ">
           <div class="container-fluid mx-2">
               {% if request.user.is_authenticated %}
                   <div class="row">
-                      <div class="col-7">
+                      <div class="col-7 mb-2">
                         <h3><strong><a href="/">
-                          Coursera<i class="fas fa-cannabis"></i>
+                          MyCourses <i class="fas fa-cannabis"></i>
                         </a></strong></h3>
                       </div>
+                      <b class="col-2 text-white-50">
+                            User: {{ user }}
+                      </b>
                       <div class="col-3 text-center">
                           {% if request.user.is_teacher %}
                               <h5 class="text-white"><a href="{% url 'manage_course_list' %}"><strong>Мой аккаунт</strong></a></h5>
@@ -29,22 +40,23 @@
                               <h5 class="text-white"><a href="{% url 'user_course_list' %}"><strong>Мой аккаунт</strong></a></h5>
                           {% endif %}
                       </div>
+                  
                       <div class="col-2 text-center">
-                          <h5 class="text-white"><a href="{% url 'logout' %}"><strong><i class="fas fa-sign-out-alt"></i>Выйти</strong></a></h5>
+                          <h5 class="text-white"><a href="{% url 'logout' %}"><strong><i class="fas fa-sign-out-alt"></i> Выйти</strong></a></h5>
                       </div>
                   </div>
               {% else %}
                   <div class="row">
-                      <div class="col-7">
+                      <div class="col-7 mb-2">
                             <a href="/">
-                              <h3><strong>Coursera<i class="fas fa-cannabis"></i></strong></h3>
+                              <h3><strong>MyCourses <i class="fas fa-cannabis"></i></strong></h3>
                             </a>
                           </div>
                        <div class="col-3 text-center">
-                          <h5 class="text-white"><a href="{% url 'signup' %}"><strong>Регистрация<i class="fas fa-user-plus"></i></strong></a></h5>
+                          <h5 class="text-white"><a href="{% url 'sign_up' %}"><strong>Регистрация <i class="fas fa-user-plus"></i></strong></a></h5>
                       </div>
                       <div class="col-2 text-center">
-                          <h5 class="text-white"><a href="{% url 'login' %}"><strong>Войти<i class="fas fa-sign-in-alt"></i></strong></a></h5>
+                          <h5 class="text-white"><a href="{% url 'login' %}"><strong>Войти <i class="fas fa-sign-in-alt"></i></strong></a></h5>
                       </div>
                   </div>
               {% endif %}
