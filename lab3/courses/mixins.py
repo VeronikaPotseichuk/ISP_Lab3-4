@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-# from .models import Course
+from .models import Course
 
 
 class OwnerMixin:
@@ -17,7 +17,7 @@ class OwnerEditMixin:
 
 
 class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
-    # model = Course
+    model = Course
     fields = ('subject',
               'title',
               'slug',

@@ -3,6 +3,8 @@ from PIL import Image
 from io import BytesIO
 from django.core import files
 from users.models import UserProfile
+from .fields import OrderField
+
 
 
 class Subject(models.Model):
@@ -69,3 +71,20 @@ class Course(models.Model):
         img.save(thumb_io, 'JPEG', quality=85)
         thumbnail = files.File(thumb_io, name=image.name)
         return thumbnail
+
+class Module(models.Model):
+    course = models.ForeignKey(Course,
+                               related_name='modules',
+                               on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    order = OrderField(blank=True, for_fields=['course'])
+
+    class Meta:
+        verbose_name = 'Модуль'
+        verbose_name_plural = 'Модули'
+        ordering = ['order']
+
+    def __str__(self):
+        return '{}. {}'.format(self.order, self.title)
+
