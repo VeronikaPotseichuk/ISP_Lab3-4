@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,13 +29,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'training.User'
+AUTH_USER_MODEL = 'users.UserProfile'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('user_course_list')
+
+LOGIN_URL = 'login'
+
+LOGOUT_URL = 'logout'
 
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console/EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
@@ -46,7 +52,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'training'
+    'courses',
+    'users',
+    'crispy_forms',
+    'embed_video',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -57,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'lab3.middleware.ErrorMiddleware',
+
 ]
 
 ROOT_URLCONF = 'lab3.urls'
@@ -85,8 +100,12 @@ WSGI_APPLICATION = 'lab3.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -123,13 +142,61 @@ USE_L10N = True
 
 USE_TZ = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.environ.get("STATIC_ROOT")
+MEDIA_ROOT = os.environ.get("MEDIA_ROOT")
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING_LEVEL = 'INFO'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'formatter_': {
+            'format': '{levelname} {asctime} {process:d} {thread:d} {module} {message}',
+            'style': "{"
+        }
+    },
+    'handlers': {
+        'file': {
+            'level': LOGGING_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'info.log'),
+            'formatter': 'formatter_'
+        },
+    },
+    'loggers': {
+        'courses': {
+            'handlers': ['file'],
+            'level': LOGGING_LEVEL,
+            'propagate': True
+        },
+        'users': {
+            'handlers': ['file'],
+            'level': LOGGING_LEVEL,
+            'propagate': True
+        },
+        'education': {
+            'handlers': ['file'],
+            'level': LOGGING_LEVEL,
+            'propagate': True
+        }
+    }
+}
