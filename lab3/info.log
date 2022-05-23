@@ -687,3 +687,16 @@ INFO 2022-05-23 20:17:36,442 12662 139634273920768 views | user: admin | used: U
 INFO 2022-05-23 20:17:39,377 12662 139634273920768 views | user: admin | used: CourseListView | method: get
 INFO 2022-05-23 20:17:42,454 12662 139634273920768 views | user: admin | used: UserCourseListView | method: get_queryset
 INFO 2022-05-23 20:17:45,879 12662 139634273920768 views | user: AnonymousUser | used: CourseListView | method: get
+INFO 2022-05-23 20:26:40,100 13770 139627020986112 views | user: AnonymousUser | used: CourseListView | method: get
+INFO 2022-05-23 20:26:53,877 13770 139627020986112 views | user: AnonymousUser | used: CourseDetailView | method: get_context_data
+INFO 2022-05-23 20:26:58,296 13770 139627020986112 views | user: AnonymousUser | used: CourseDetailView | method: get_context_data
+INFO 2022-05-23 20:27:19,366 13770 139627020986112 views | user: nika | used: UserCourseListView | method: get_queryset
+INFO 2022-05-23 20:27:21,305 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:21,309 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:21,309 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:26,054 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:26,058 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:26,058 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:31,562 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:31,563 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset
+INFO 2022-05-23 20:27:31,565 13770 139627020986112 views | user: nika | used: UserCourseDetailView | method: get_queryset

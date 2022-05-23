@@ -163,5 +163,5 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
-lab3/node_modules/
+education_vue/node_modules/
 lab3/education_vue/
