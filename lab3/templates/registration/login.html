@@ -2,9 +2,9 @@
 {% block title %}Вход{% endblock %}
 {% block content %}
     <main class="container my-10 login rounded text-center">
-            <h1>Вход</h1>
+            <h1 class="pricing-header p-3 pb-md-4 mx-auto text-center">Вход</h1>
             {% if form.errors %}
-                <p>Не правильно введен пароль или имя пользователя, попробуй еще раз</p>
+                <p>Неверно введен пароль или имя пользователя, попробуй еще раз</p>
             {% endif %}
         <div class="form-floating">
             <form action="{% url 'login' %}" method="post">

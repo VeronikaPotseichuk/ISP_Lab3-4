@@ -7,7 +7,7 @@
 {% block content %}
     <div class="container p-5 m-1">
         {% with course=module.course %}
-            <h1 class="head-clr-grey"><strong> Курс "{{ course.title }}"</strong></h1>
+            <h1 class="head-clr-white pricing-header p-3 pb-md-4 mx-auto"><strong> Курс "{{ course.title }}"</strong></h1>
 
             <div class="row">
                 <div class="col-4">
@@ -18,7 +18,7 @@
                                 <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
                                     <a href="{% url 'module_content_list' m.id %}">
                                         <span>Модуль
-                                            <span class="order"> {{ m.order|add:1 }}</span>
+                                            <span class="order"> {{ m.order|add:0 }}</span>
                                         </span>
                                         <br>
                                         {{ m.title }}
@@ -34,7 +34,7 @@
 
                 <div class="col-8">
                     <div class="container bg-dark rounded m-3 p-5">
-                        <h2 class="text-center">Модуль {{ module.order|add:1 }}: {{ module.title }}</h2>
+                        <h2 class="text-center">Модуль {{ module.order|add:0 }}: {{ module.title }}</h2>
                         <h3>Содержание:</h3>
 
                         <div id="module-contents">
@@ -42,9 +42,9 @@
                                 <div data-id="{{ content.id }}">
                                     {% with item=content.item %}
                                         <p>{{ item }} ({{ item|model_name }})</p>
-                                        <a href="{% url 'module_content_update' module.id item|model_name item.id %}">Редактировать</a>
+                                        <a href="{% url 'module_content_update' module.id item|model_name item.id %}">Редактировать </a>
                                         <form action="{% url 'module_content_delete' content.id %}" method="post">
-                                            <input class="btn btn-lg btn-primary text-center" type="submit" value="Удалить">
+                                            <input class="btn btn-lg btn-primary text-center m-2" type="submit" value="Удалить">
                                             {% csrf_token %}
                                         </form>
                                     {% endwith %}

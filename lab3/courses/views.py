@@ -18,7 +18,6 @@ from .mixins import OwnerCourseEditMixin, OwnerEditMixin, OwnerCourseMixin
 import logging
 
 logger = logging.getLogger(__name__)
-message_: str
 message_ = '| user: %s | used: %s | method: %s'
 
 class ManageCourseListView(ListView):

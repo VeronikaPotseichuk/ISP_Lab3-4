@@ -1,6 +1,6 @@
 body {
     scroll-behavior: smooth!important;
-    background: #ffffff url("../img/wh.jpg");
+    background: #ffffff url("../img/back4.jpg");
     color: #ffffff;
     font-family: Georgia, serif;
     /*font-family: 'Montserrat', sans-serif;*/
@@ -29,8 +29,8 @@ a:hover, .logo:hover {
     text-shadow:
     -1px -1px 1px #3b3b3b,
     1px -1px 1px #303030;
-    color: #85ffd4;
-    text-decoration: #85ffd4;
+    color:darkcyan;
+    text-decoration: darkcyan;
     margin-top: 20px;
     transform: scale(1.05);
 }
@@ -39,14 +39,14 @@ a:hover, .logo:hover {
     border: #b5b5b5;
     max-width: 550px;
     padding-block: 300px!important;
-    color: #676767;
+    color: #020202;
     margin: 180px!important;
     margin-left: 410px!important;
-    background-color: rgba(138, 255, 208, 0.7);
+    background-color: rgba(192, 204, 204, 0.5);
 }
 
 .head-clr-green {
-    color: #85ffd4;
+    color: darkcyan;
 }
 
 .head-clr-grey {
@@ -103,7 +103,7 @@ input[type="file"]::-webkit-file-upload-button {
     text-decoration: none;
     display: inline-block;
     border-radius: 30px;
-    background-image: linear-gradient(45deg, #62ffdb 0%, #ffffff 50%, #acacac 100%);
+    background-image: linear-gradient(45deg, #15493d 0%, #ffffff 50%, #acacac 100%);
     background-position: 100% 0;
     background-size: 200% 200%;
     font-size: 24px;
@@ -114,7 +114,7 @@ input[type="file"]::-webkit-file-upload-button {
     border: none;
 }
 .pressed-button:hover, .btn-primary:hover {
-    box-shadow: 0 0 0 0 rgb(146, 221, 199);
+    box-shadow: 0 0 0 0 rgb(41, 99, 81);
     background-position: 0 0;
     color: #292929;
 }
