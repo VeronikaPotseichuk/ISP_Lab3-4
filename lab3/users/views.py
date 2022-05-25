@@ -1,7 +1,7 @@
 import logging
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy as _
 from .forms import UserProfileCreationForm, CourseRegistrationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,7 +20,7 @@ message_ = '| user: %s | used: %s | method: %s'
 class SignUpView(generic.CreateView):
     template_name = 'users/sign_up.html'
     form_class = UserProfileCreationForm
-    success_url = reverse_lazy('user_course_list')
+    success_url = _('user_course_list')
 
     def post(self, request, *args, **kwargs):
         form = UserProfileCreationForm(request.POST)
@@ -63,7 +63,7 @@ class UserRegistrationCoursesView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('user_course_detail',
+        return _('user_course_detail',
                             args=[self.course.id])
 
 
