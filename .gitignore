@@ -165,3 +165,4 @@ pyenv
 Vagrantfile
 education_vue/node_modules/
 lab3/education_vue/
+lab3/staticfiles/
