@@ -13,7 +13,8 @@ class UserProfileCreationForm(UserCreationForm):
                   'email',
                   'age',
                   'is_teacher',
-                  'image')
+                  #'image'
+                )
 
 
 class UserProfileChangeForm(UserChangeForm):
@@ -22,7 +23,8 @@ class UserProfileChangeForm(UserChangeForm):
         fields = ('username',
                   'email',
                   'age',
-                  'image')
+                  #'image'
+                )
 
 
 class CourseRegistrationForm(forms.Form):

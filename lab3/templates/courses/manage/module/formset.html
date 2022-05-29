@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container p-5 m-3 text-center">
+    <div class="container p-5 m-3 text-center text-white">
         <h1 class="head-clr-white">Редактировать "{{ course.title }}"</h1>
         <div class="row justify-content-center">
             <div class="col-7 bg-dark p-3 rounded">
             <h2>Модули курса</h2><hr>
-{#            <form action="" method="post">#}
+{#            <form action="" method="post" enctype="multipart/form-data">#}
 {#                            {% csrf_token %}#}
 {#                    <fieldset disabled>#}
 {#                        <div class="mb-3">#}
@@ -23,7 +23,7 @@
 {#                        <input type="submit" class="btn btn-lg btn-primary" value="Сохранить">#}
 {#                    </fieldset>#}
 {#                </form>#}
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {{ formset }}
                 {{ formset.management_form }}
                 {% csrf_token %}

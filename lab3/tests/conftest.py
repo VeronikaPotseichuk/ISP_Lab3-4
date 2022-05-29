@@ -1,7 +1,9 @@
 import pytest
+import users
+import courses
 
-from courses.models import Subject, Course, Module
 from users.models import UserProfile
+from courses.models import Subject, Course, Module
 
 
 @pytest.fixture
@@ -59,3 +61,4 @@ def module_data(courses):
 @pytest.fixture
 def modules(module_data):
     return Module.objects.create(**module_data)
+

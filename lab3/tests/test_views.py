@@ -4,7 +4,7 @@ from django import urls
 from django.contrib.auth import get_user_model
 
 
-@pytest.mark.parametrize('param', ('signup',))
+@pytest.mark.parametrize('param', ('sign_up',))
 def test_render_views(client, param):
     temp_url = urls.reverse(param)
     response = client.get(temp_url)
@@ -15,7 +15,7 @@ def test_render_views(client, param):
 def test_signup(client, user_data):
     user_model = get_user_model()
     assert user_model.objects.count() == 0
-    signup_url = urls.reverse('signup')
+    signup_url = urls.reverse('sign_up')
     response = client.post(signup_url, **user_data)
     assert user_model.objects.count() == 0
     assert response.status_code == 200
@@ -34,7 +34,7 @@ def test_login(client, user, user_data):
 def test_logout(client, user):
     url_ = urls.reverse(('logout'))
     response = client.get(url_)
-    assert response.status_code == 200
+    assert response.status_code == 302
 
 
 @pytest.mark.django_db
@@ -62,7 +62,7 @@ def test_authenticated_user(client, param, authenticated_user):
 @pytest.mark.parametrize('param', (
         'course_list',
         'login',
-        'signup'))
+        'sign_up'))
 def test_anonymous_user(client, param):
     url_ = urls.reverse(param)
     response = client.get(url_)

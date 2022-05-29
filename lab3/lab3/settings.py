@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4ffw7wq#9d9hxc*a+ny%)e36!r69hd&9e4on8*6%8etump@%-a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG', default=1))
+DEBUG = bool(os.environ.get('DEBUG', True))
 
 ALLOWED_HOSTS = ['.herokuapp.com']
 
@@ -40,8 +40,7 @@ LOGOUT_URL = 'logout'
 
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 # Application definition
@@ -49,10 +48,10 @@ EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.staticfiles',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'courses',
     'users',
     'crispy_forms',
@@ -60,7 +59,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_extensions',
-
 ]
 
 MIDDLEWARE = [
@@ -158,13 +156,12 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.environ.get("STATIC_ROOT")
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT")
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+# ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -212,7 +209,7 @@ LOGGING = {
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
 
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
 TEST_RUNNER = 'django_heroku.HerokuDiscoverRunner'
+# Configure Django App for Heroku.
+import django_on_heroku
+django_on_heroku.settings(locals())

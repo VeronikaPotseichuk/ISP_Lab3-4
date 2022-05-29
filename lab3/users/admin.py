@@ -11,7 +11,8 @@ class UserProfileAdmin(UserAdmin):
                     'username',
                     'age',
                     'is_teacher',
-                    'image')
+                    'image'
+                    )
     model = UserProfile
 
 

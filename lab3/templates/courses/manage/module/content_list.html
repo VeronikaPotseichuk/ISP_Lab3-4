@@ -7,18 +7,18 @@
 {% block content %}
     <div class="container p-5 m-1">
         {% with course=module.course %}
-            <h1 class="head-clr-white pricing-header p-3 pb-md-4 mx-auto"><strong> Курс "{{ course.title }}"</strong></h1>
+            <h1 class="head-clr-white pricing-header p-3 pb-md-4 mx-auto text-white"><strong> Курс "{{ course.title }}"</strong></h1>
 
             <div class="row">
                 <div class="col-4">
-                    <div class="container bg-dark p-5 rounded m-3">
+                    <div class="container bg-dark p-5 rounded m-3 text-white">
                         <h3>Модули</h3>
                         <ul id="modules">
                             {% for m in course.modules.all %}
                                 <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
                                     <a href="{% url 'module_content_list' m.id %}">
                                         <span>Модуль
-                                            <span class="order"> {{ m.order|add:0 }}</span>
+                                            <span class="order"> {{ m.order|add:1 }}</span>
                                         </span>
                                         <br>
                                         {{ m.title }}
@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="col-8">
-                    <div class="container bg-dark rounded m-3 p-5">
-                        <h2 class="text-center">Модуль {{ module.order|add:0 }}: {{ module.title }}</h2>
+                    <div class="container bg-dark rounded m-3 p-5 text-white">
+                        <h2 class="text-center">Модуль {{ module.order|add:1 }}: {{ module.title }}</h2>
                         <h3>Содержание:</h3>
 
                         <div id="module-contents">

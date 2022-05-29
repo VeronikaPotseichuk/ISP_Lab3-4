@@ -150,7 +150,7 @@ class File(ItemBase):
 
 
 class Picture(ItemBase):
-    picture = models.FileField(upload_to='images')
+    picture = models.ImageField(upload_to='images')
 
     class Meta:
         verbose_name = 'Изображение'

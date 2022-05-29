@@ -250,3 +250,4 @@ class CourseDetailView(DetailView):
         context['registration_form'] = CourseRegistrationForm(
             initial={'course': self.object})
         return context
+

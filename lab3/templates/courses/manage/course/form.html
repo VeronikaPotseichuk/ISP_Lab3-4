@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <main class="container m-5 text-center">
+    <main class="container m-5 text-center text-white">
         <div class="row justify-content-center">
             <div class="col-6 bg-dark p-3 rounded">
                         <h1>
@@ -19,12 +19,12 @@
                                 Создать новый курс
                             {% endif %}
                         </h1> <hr>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     {{ form.as_p }}
                     {% csrf_token %}
                     <p><input type="submit" class="btn btn-lg btn-primary" value="Сохранить"></p>
                 </form>
-{#                <form action="" method="post">#}
+{#                <form action="" method="post" enctype="multipart/form-data">#}
 {#                    {% csrf_token %}#}
 {#                        <h1>#}
 {#                            {% if object %}#}
@@ -58,7 +58,7 @@
     </main>
 {#<div class="module">#}
 {#    <h2>Информация о курсе</h2>#}
-{#    <form action="" method="post">#}
+{#    <form action="" method="post" enctype="multipart/form-data">#}
 {#        {{ form.as_p }}#}
 {#        {% csrf_token %}#}
 {#        <p><input type="submit" value="Save course"></p>#}

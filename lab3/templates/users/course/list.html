@@ -19,7 +19,7 @@
 {#    </div>#}
 {#        </div>#}
 {#    </aside>#}
-    <div class="container p-5">
+    <div class="container p-5 text-white">
          {% for course in object_list %}
              <hr><hr>
              <div class="container rounded p-5 mx-20 bg-dark text-center">
@@ -33,7 +33,7 @@
         <p><a class="btn btn-primary" href="{% url 'user_course_detail' course.id %}">Начать »</a></p>
         </div>
          {% empty %}
-             <div class="container rounded p-5 mx-20 bg-dark text-center">
+             <div class="container rounded p-5 mx-20 bg-dark text-center text-white>
                 <p class="fs-4">Тут пусто:( <a href="{% url 'course_list' %}"> Нажми, чтобы выбрать.</a></p>
              </div>
          {% endfor %}
