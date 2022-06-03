@@ -1,13 +1,13 @@
-from django.db import models
-from PIL import Image
 from io import BytesIO
+from PIL import Image
 from django.core import files
-from users.models import UserProfile
-from .fields import OrderField
+from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from .fields import OrderField
+from users.models import UserProfile
 from django.template.loader import render_to_string
-
 
 
 class Subject(models.Model):
@@ -21,6 +21,7 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Course(models.Model):
     owner = models.ForeignKey(UserProfile,
@@ -36,11 +37,7 @@ class Course(models.Model):
     users = models.ManyToManyField(UserProfile,
                                    related_name='courses_joined',
                                    blank=True)
-    image = models.ImageField(upload_to='uploads/',
-                              blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads/',
-                                  blank=True, null=True)
-
+                                
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
@@ -53,27 +50,6 @@ class Course(models.Model):
         if self.image:
             return self.image.url
         return ''
-
-    def get_thumbnail(self):
-        if self.thumbnail:
-            return self.thumbnail.url
-        else:
-            if self.image:
-                self.thumbnail = self.make_thumbnail(self.image)
-                self.save()
-                return self.thumbnail.url
-            else:
-                return ''
-
-    @staticmethod
-    def make_thumbnail(image, size=(300, 200)):
-        img = Image.open(image)
-        img.convert('RGB')
-        img.thumbnail(size)
-        thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
-        thumbnail = files.File(thumb_io, name=image.name)
-        return thumbnail
 
 
 class Module(models.Model):
@@ -101,9 +77,8 @@ class Content(models.Model):
                                      on_delete=models.CASCADE,
                                      limit_choices_to={
                                          'model__in': ('text',
-                                                       'picture',
                                                        'video',
-                                                       'file')
+                                                            )
                                      })
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
@@ -113,6 +88,7 @@ class Content(models.Model):
         verbose_name = 'Материал'
         verbose_name_plural = 'Материалы'
         ordering = ['order']
+
 
 class ItemBase(models.Model):
     owner = models.ForeignKey(UserProfile,
@@ -134,13 +110,14 @@ class ItemBase(models.Model):
             {'item': self}
         )
 
+
 class Text(ItemBase):
     content = models.TextField()
 
     class Meta:
         verbose_name = 'Информация'
 
-
+'''
 class File(ItemBase):
     file = models.FileField(upload_to='files')
 
@@ -150,7 +127,7 @@ class File(ItemBase):
 
 
 class Picture(ItemBase):
-    picture = models.ImageField(upload_to='images')
+    picture = models.FileField(upload_to='images')
 
     class Meta:
         verbose_name = 'Изображение'
@@ -160,7 +137,7 @@ class Picture(ItemBase):
         if self.picture:
             return self.picture.url
         return ''
-
+'''
 
 class Video(ItemBase):
     url = models.URLField()

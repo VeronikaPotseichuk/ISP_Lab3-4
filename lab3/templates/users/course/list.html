@@ -23,11 +23,11 @@
          {% for course in object_list %}
              <hr><hr>
              <div class="container rounded p-5 mx-20 bg-dark text-center">
-          <img src="{{ course.get_thumbnail }}"
+          <img class="bd-placeholder-img rounded-circle"
                alt=""
                width="140"
                height="140"
-               class="bd-placeholder-img rounded-circle">
+               >
         <h2>{{ course.title }}</h2>
         <p class="lead">{{ course.overview }}</p>
         <p><a class="btn btn-primary" href="{% url 'user_course_detail' course.id %}">Начать »</a></p>

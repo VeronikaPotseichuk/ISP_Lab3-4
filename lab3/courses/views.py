@@ -1,24 +1,26 @@
+import logging
+
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.views.generic.list import ListView
-from .models import Course, Subject, Module, Content
+from .models import Course, Subject
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import redirect
-from django.views.generic.base import TemplateResponseMixin, View
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import redirect, get_object_or_404, render
+from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from .forms import ModuleFormSet
 from django.forms.models import modelform_factory
 from django.apps import apps
+from .models import Module, Content
 from django.db.models import Count
 from django.views.generic.detail import DetailView
 from users.forms import CourseRegistrationForm
-from .mixins import OwnerCourseEditMixin, OwnerEditMixin, OwnerCourseMixin
-
-import logging
+from .mixins import OwnerCourseEditMixin, OwnerEditMixin, OwnerCourseMixin, OwnerMixin
 
 logger = logging.getLogger(__name__)
 message_ = '| user: %s | used: %s | method: %s'
+
 
 class ManageCourseListView(ListView):
     model = Course
@@ -51,6 +53,7 @@ class CourseDeleteView(OwnerCourseMixin,
     template_name = 'courses/manage/course/delete.html'
     success_url = reverse_lazy('manage_course_list')
     permission_required = 'courses.delete_course'
+
 
 class CourseModuleUpdateView(TemplateResponseMixin, View):
     template_name = 'courses/manage/module/formset.html'
@@ -163,7 +166,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
     @staticmethod
     def get_model(model_name):
-        if model_name in ('text', 'picture', 'video', 'file'):
+        if model_name in ('text', 'video'):
             return apps.get_model(app_label='courses',
                                   model_name=model_name)
         logger.warning(f'model {model_name} does not exist')
@@ -250,4 +253,3 @@ class CourseDetailView(DetailView):
         context['registration_form'] = CourseRegistrationForm(
             initial={'course': self.object})
         return context
-

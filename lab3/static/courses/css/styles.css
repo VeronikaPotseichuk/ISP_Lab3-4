@@ -1,7 +1,7 @@
 body {
     scroll-behavior: smooth!important;
-    background: #ffffff url("../img/back4.jpg");
-    color: #ffffff;
+    background: #000 url("../img/back4.jpg");
+    color: #000;
     font-family: Georgia, serif;
     font-size: 24px;
     font-weight: 300;
@@ -61,6 +61,13 @@ a:hover, .logo:hover {
     border-radius: 50% / 10%!important;
     text-indent: .1em;
 }
+
+.rounded-circle {
+    background: #15493d url("../img/6.jpg");
+    background-position: center;
+    background-size: auto 140px;
+}
+
 .rounded:before {
     position: absolute;
     top: 10%;
@@ -125,4 +132,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .img-rounded {
     border-radius: 18px 18px 0 0;
+    background: #15493d url("../img/5.jpg");
+    background-position: center;
+    background-size: auto 225px;
 }

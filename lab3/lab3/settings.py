@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4ffw7wq#9d9hxc*a+ny%)e36!r69hd&9e4on8*6%8etump@%-a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG', True))
+DEBUG = bool(os.environ.get('DEBUG', default=True))
 
 ALLOWED_HOSTS = ['.herokuapp.com']
 
@@ -41,6 +41,7 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 # Application definition
@@ -99,18 +100,20 @@ WSGI_APPLICATION = 'lab3.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
+#        "NAME": os.environ.get("django_db"),        
+#        "USER": os.environ.get("SQL_USER", "nika_db"),
+#        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+#        "HOST": os.environ.get("SQL_HOST", "localhost"),
+#        "PORT": os.environ.get("SQL_PORT", "5432"),
+#    }
+#}
 
+DATABASES = {}
 
+DATABASES['default'] = dj_database_url.config(default='postgres://qybeznghozgrns:786cfdec4b88f59763c220a67d4671a2b2005915d8dfcc7ba29f141ecf1b8f6c@ec2-34-230-153-41.compute-1.amazonaws.com:5432/d9c9orh40d3uko')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -144,7 +147,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,7 +164,7 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

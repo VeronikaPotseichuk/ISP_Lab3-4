@@ -35,8 +35,8 @@
   "model": "courses.subject",
   "pk": 5,
   "fields": {
-    "title": "Танцы",
-    "slug": "tancy"
+    "title": "Хореография",
+    "slug": "horeografia"
   }
 },
 {
@@ -51,8 +51,8 @@
   "model": "courses.subject",
   "pk": 7,
   "fields": {
-    "title": "Готовка",
-    "slug": "gotovka"
+    "title": "Кулинария",
+    "slug": "kulinaria"
   }
 },
 {

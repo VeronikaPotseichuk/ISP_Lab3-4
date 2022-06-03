@@ -50,6 +50,7 @@ class SignUpView(generic.CreateView):
         login(self.request, user)
         return result
 
+
 class UserRegistrationCoursesView(LoginRequiredMixin, FormView):
     course = None
     form_class = CourseRegistrationForm
