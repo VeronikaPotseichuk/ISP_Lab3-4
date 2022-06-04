@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure-4ffw7wq#9d9hxc*a+ny%)e36!r69hd&9e4on8*6%8etump@%-a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DEBUG', default=True))
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'https://herokuapplab3isp.herokuapp.com', 'herokuapplab3isp.herokuapp.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://herokuapplab3isp.herokuapp.com']
 
 AUTH_USER_MODEL = 'users.UserProfile'
 

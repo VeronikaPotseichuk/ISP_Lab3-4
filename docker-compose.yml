@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   web:
-    image: nikaapots/lab4:latest
+    image: nikaapots/lab4isp:latest
     command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - ./lab3/:/usr/src/lab3
